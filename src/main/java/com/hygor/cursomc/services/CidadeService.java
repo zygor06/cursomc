@@ -1,24 +1,25 @@
 package com.hygor.cursomc.services;
 
 import com.hygor.cursomc.domain.Categoria;
-import com.hygor.cursomc.domain.Produto;
+import com.hygor.cursomc.domain.Cidade;
 import com.hygor.cursomc.repositories.CategoriaRepository;
-import com.hygor.cursomc.repositories.ProdutoRepository;
+import com.hygor.cursomc.repositories.CidadeRepository;
 import com.hygor.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProdutoService {
+public class CidadeService {
 
     @Autowired
-    private ProdutoRepository repository;
+    private CidadeRepository repository;
 
-    public Produto buscar(Integer id){
-        Produto obj = repository.findOne(id);
+    public Cidade buscar(Integer id){
+        Cidade obj = repository.findOne(id);
         if(obj == null){
-            throw new ObjectNotFoundException("Objeto não encontrado! ID:" + id + ", Tipo: " + Produto.class.getName());
+            throw new ObjectNotFoundException("Objeto não encontrado! ID:" + id + ", Tipo: " + Cidade.class.getName());
         }
+
         return obj;
     }
 
