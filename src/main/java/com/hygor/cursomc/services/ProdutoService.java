@@ -14,12 +14,12 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
 
-    public Produto buscar(Integer id){
-        Produto obj = repository.findOne(id);
-        if(obj == null){
+    public Produto find(Integer id){
+        Produto produto = repository.findOne(id);
+        if(produto == null){
             throw new ObjectNotFoundException("Objeto não encontrado! ID:" + id + ", Tipo: " + Produto.class.getName());
         }
-        return obj;
+        return produto;
     }
 
 }

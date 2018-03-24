@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value="/produtos")
-public class RepositoryResource {
+public class ProdutoResource {
 
     @Autowired
     private ProdutoService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){
-        Produto obj = service.buscar(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<Produto> find(@PathVariable Integer id){
+        Produto produto = service.find(id);
+        return ResponseEntity.ok().body(produto);
     }
 }

@@ -14,13 +14,13 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
-    public Cliente buscar(Integer id){
-        Cliente obj = repository.findOne(id);
-        if(obj == null){
+    public Cliente find(Integer id){
+        Cliente cliente = repository.findOne(id);
+        if(cliente == null){
             throw new ObjectNotFoundException("Objeto não encontrado! ID:" + id + ", Tipo: " + Cliente.class.getName());
         }
 
-        return obj;
+        return cliente;
     }
 
 }

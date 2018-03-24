@@ -1,8 +1,6 @@
 package com.hygor.cursomc.resources;
 
-import com.hygor.cursomc.domain.Categoria;
 import com.hygor.cursomc.domain.Cliente;
-import com.hygor.cursomc.services.CategoriaService;
 import com.hygor.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +17,8 @@ public class ClienteResource {
     private ClienteService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){
-        Cliente obj = service.buscar(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<Cliente> find(@PathVariable Integer id){
+        Cliente cliente = service.find(id);
+        return ResponseEntity.ok().body(cliente);
     }
 }
