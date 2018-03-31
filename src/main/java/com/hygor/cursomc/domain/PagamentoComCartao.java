@@ -1,10 +1,13 @@
 package com.hygor.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.hygor.cursomc.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 
 @Entity
+
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento{
 
     private Integer numeroDeParcelas;

@@ -1,15 +1,17 @@
 package com.hygor.cursomc.resources;
 
 import com.hygor.cursomc.domain.Cliente;
-import com.hygor.cursomc.domain.Cliente;
 import com.hygor.cursomc.dto.ClienteDTO;
+import com.hygor.cursomc.dto.ClienteNewDTO;
 import com.hygor.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,19 @@ public class ClienteResource {
     public ResponseEntity<Cliente> find(@PathVariable Integer id){
         Cliente cliente = clienteService.find(id);
         return ResponseEntity.ok().body(cliente);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteDTO){
+        Cliente cliente = clienteService.fromDTO(clienteDTO);
+        cliente = clienteService.insert(cliente);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(cliente.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
 

@@ -1,6 +1,7 @@
 package com.hygor.cursomc.services;
 
 import com.hygor.cursomc.domain.Categoria;
+import com.hygor.cursomc.domain.Categoria;
 import com.hygor.cursomc.dto.CategoriaDTO;
 import com.hygor.cursomc.repositories.CategoriaRepository;
 import com.hygor.cursomc.services.exceptions.DataIntegrityException;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -29,14 +31,16 @@ public class CategoriaService{
         return categoria;
     }
 
+    @Transactional
     public Categoria insert(Categoria categoria){
         categoria.setId(null);
         return repository.save(categoria);
     }
 
     public Categoria update(Categoria categoria){
-        find(categoria.getId());
-        return repository.save(categoria);
+        Categoria newCategoria = find(categoria.getId());
+        updateData(newCategoria, categoria);
+        return repository.save(newCategoria);
     }
 
     public void delete(Integer id){
@@ -62,6 +66,10 @@ public class CategoriaService{
 
     public Categoria fromDTO(CategoriaDTO categoriaDTO){
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+    }
+
+    private void updateData(Categoria newCategoria, Categoria categoria){
+        newCategoria.setNome(categoria.getNome());
     }
 
 }
